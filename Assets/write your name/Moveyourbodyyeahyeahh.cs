@@ -1,27 +1,77 @@
 ﻿using UnityEditor.VersionControl;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
+
+public enum CharacterState
+{
+    Grounded = 0,
+    Airborne = 1,
+    Jumping = 2,
+    Total
+
+}
 public class Moveyourbodyyeahyeahh : MonoBehaviour
 
 {
+    public CharacterState jumpingState = CharacterState.Airborne;
+
     public float Gravitypersecound = 160.0f;
     public float MovementSpeedpersecond = 10.0f;
-    public float grundlevel = 0.0f;
+    public float Groundlevel = 0.0f;
+    
+    public float JumpspeedFactor = 3.0f;
+    public float JumpHeight = 150.0f;
+    private float JumpHeightDelta = 0.0f;
+  
   void Update()
     {
-        Vector3 Gravityposition = transform.position;
-        Gravityposition.y -= Gravitypersecound * Time.deltaTime;
-        if (Gravityposition.y < grundlevel) { Gravityposition.y = grundlevel; }
-        transform.position = Gravityposition;
+        bool isMoving = false;
+       //gravity
+        if(isMoving == false) 
+    if(transform.position.y <= Groundlevel)
+          
+            { Vector3 characterPosition = transform.position;
+                characterPosition.y = Groundlevel;
+                transform.position = characterPosition;
+                jumpingState = CharacterState.Grounded;
+            }
+          
 
-        //up
-        if (Input.GetKey(KeyCode.W))
+        
         {
-            Vector3 characterposition = transform.position;
-            characterposition.y += MovementSpeedpersecond * Time.deltaTime;
-            transform.position = characterposition;
+            Vector3 Gravityposition = transform.position;
+            Gravityposition.y -= Gravitypersecound * Time.deltaTime;
+            if (Gravityposition.y < Groundlevel) { Gravityposition.y = Groundlevel; }
+            transform.position = Gravityposition;
         }
 
+
+
+
+        //up
+        if (Input.GetKey(KeyCode.W) && jumpingState == CharacterState.Grounded)
+        {
+            jumpingState = CharacterState.Jumping;
+            JumpHeightDelta = 0.0f;
+        }
+        if (jumpingState == CharacterState.Jumping
+            )
+
+        { Vector3 characterPosition = transform.position;
+
+            float totalJumpMOvementThisFrame = MovementSpeedpersecond * JumpspeedFactor * Time.deltaTime;
+            
+            characterPosition.y += totalJumpMOvementThisFrame;
+            transform.position = characterPosition;
+           
+            JumpHeightDelta += totalJumpMOvementThisFrame;
+            if(JumpHeightDelta >= JumpHeight)
+            
+            { jumpingState = CharacterState.Airborne;
+                JumpHeightDelta = 0.0f;
+            }
+        }
         //left
         if (Input.GetKey(KeyCode.A))
         {
@@ -45,8 +95,11 @@ public class Moveyourbodyyeahyeahh : MonoBehaviour
             characterposition.x += MovementSpeedpersecond * Time.deltaTime;
             transform.position = characterposition;
         }
-
     }
 }
 
 
+//Vector3 characterposition = transform.position;
+//characterposition.y += MovementSpeedpersecond * Time.deltaTime;
+//transform.position = characterposition;
+//isMoving = true;
