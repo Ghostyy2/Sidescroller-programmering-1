@@ -14,6 +14,7 @@ public enum CharacterState
 public class Moveyourbodyyeahyeahh : MonoBehaviour
 
 {
+    public Rigidbody2D myrigidbody = null;
     public CharacterState jumpingState = CharacterState.Airborne;
 
     public float Gravitypersecound = 160.0f;
@@ -79,7 +80,7 @@ public class Moveyourbodyyeahyeahh : MonoBehaviour
             characterposition.x -= MovementSpeedpersecond * Time.deltaTime;
             transform.position = characterposition;
         }
-
+        
         //down
         if (Input.GetKey(KeyCode.S))
         {
