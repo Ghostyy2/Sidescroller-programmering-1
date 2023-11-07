@@ -31,6 +31,7 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {
             JumpingState = CharacterState.Jumping; 
