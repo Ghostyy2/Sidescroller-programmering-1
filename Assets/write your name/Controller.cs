@@ -1,3 +1,7 @@
+using JetBrains.Annotations;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -5,12 +9,14 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 
 public class Controller : MonoBehaviour
-{
+{ 
+       public int HP = 1;
+    public int addhealth = 1;
     
     public Rigidbody2D myRigidBody = null;
 
     public CharacterState JumpingState = CharacterState.Airborne;
-   
+    public float movementSign = 1.0f;
 
     //Gravity
     public float GravityPerSecond = 160.0f; //Falling Speed
@@ -24,15 +30,17 @@ public class Controller : MonoBehaviour
 
     //Movement
     public float MovementSpeedPerSecond = 10.0f;
-
-
+    
+    
+    
 
 
 
     private void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
+       
+    
+            if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {
             JumpingState = CharacterState.Jumping; 
             JumpHeightDelta = 0.0f; 
