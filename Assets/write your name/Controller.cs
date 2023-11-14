@@ -9,7 +9,9 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 
 public class Controller : MonoBehaviour
-{ 
+{
+    public SpriteRenderer mySpriteRenderer = null;
+    public List<Sprite> Charactersprites = new List<Sprite>();
        public int HP = 1;
     public int addhealth = 1;
     
@@ -38,7 +40,16 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-       
+        int HpCopy =HP - 1;
+        if (HpCopy < 3)
+        {
+            HpCopy = 0;
+        }
+      if (HpCopy >= Charactersprites.Count)
+        {
+            HpCopy = Charactersprites.Count - 1;
+        }
+        mySpriteRenderer.sprite = Charactersprites[HP-1];
     
             if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {

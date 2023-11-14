@@ -14,9 +14,7 @@ public class Powerup : MonoBehaviour
         var playerScript = collision.gameObject.GetComponent<Controller>();
       if (playerScript != null)
         {
-            playerScript.HP += addhealth;
-            addHealth = 0;
-            GameObject.Destroy(gameObject);
+            
      
         }
     }
