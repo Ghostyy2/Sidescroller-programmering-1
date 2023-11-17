@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class MyEnemy : MonoBehaviour
 {
-    Kitty MyenemyScript = null;
-    private void OnCollisionEnter2D(Collision2D collision)
+    
+    public Rigidbody2D myRigidBody = null;
+
+    public float MovementSpeedPerSecond = 10.0f;
+    public float MovementSign = 1.0f;
+
+
+    void FixedUpdate()
     {
-        Vector3 enemyscale = MyenemyScript.transform.localScale;
-        enemyscale.x = -enemyscale.x;
-        MyenemyScript.transform.localScale = enemyscale;
-        MyenemyScript.MovenmentSpeedPerSecond *= -1;
+       
+        Vector3 characterVelocity = myRigidBody.velocity;
+        
+        characterVelocity.x = 0;
+
+        
+        characterVelocity += MovementSign * MovementSpeedPerSecond * transform.right.normalized;
+
+        
+        myRigidBody.velocity = characterVelocity;
+
+
     }
-
-
-
-
 }
+
+
+

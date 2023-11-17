@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 
@@ -40,24 +41,40 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-        int HpCopy =HP - 1;
-        if (HpCopy < 3)
+        int hpCopy = HP - 1;
+
+        if (hpCopy < 0)
         {
-            HpCopy = 0;
+            hpCopy = 0;
         }
-      if (HpCopy >= Charactersprites.Count)
-        {
-            HpCopy = Charactersprites.Count - 1;
-        }
-        mySpriteRenderer.sprite = Charactersprites[HP-1];
     
-            if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
+        if (hpCopy >= Charactersprites.Count)
+        {
+            hpCopy = Charactersprites.Count - 1;
+        }
+        
+        mySpriteRenderer.sprite = Charactersprites[hpCopy];
+
+        if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {
             JumpingState = CharacterState.Jumping; 
             JumpHeightDelta = 0.0f; 
         }
+        if (HP < 0)
+        {
+            Scenes mySceneLoader = gameObject.GetComponent<Scenes>();
+            if (mySceneLoader != null)
+            {
+              
+            }
+        }
+       
+       {
+          
+            
+        }
     }
-
+              
     void FixedUpdate()
     {
         Vector3 characterVelocity = myRigidBody.velocity;
@@ -90,4 +107,12 @@ public class Controller : MonoBehaviour
         myRigidBody.velocity = characterVelocity;
 
     }
+
+public void TakeDamage(int aHPValue)
+    {
+        HP += aHPValue;
+    
+    }
+
+
 }
