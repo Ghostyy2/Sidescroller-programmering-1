@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class MyEnemy : MonoBehaviour
 {
-    
+    public void TakeDamage(int aHPValue)
+    {
+     
+
+    }
+
     public Rigidbody2D myRigidBody = null;
 
     public float MovementSpeedPerSecond = 10.0f;
