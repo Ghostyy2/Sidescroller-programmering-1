@@ -11,6 +11,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Controller : MonoBehaviour
 {
+    
     public SpriteRenderer mySpriteRenderer = null;
     public List<Sprite> Charactersprites = new List<Sprite>();
        public int HP = 1;
@@ -65,7 +66,7 @@ public class Controller : MonoBehaviour
             Scenes mySceneLoader = gameObject.GetComponent<Scenes>();
             if (mySceneLoader != null)
             {
-              
+                mySceneLoader.LoadScene("Game Over");
             }
         }
        
